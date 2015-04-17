@@ -80,7 +80,7 @@ public class MainActivity extends Activity implements RadioGroup.OnCheckedChange
     private ListView messageListView;
     private ArrayAdapter<String> listAdapter;
     private Button btnConnectDisconnect,btnSend;
-    private EditText edtMessage;
+    //private EditText edtMessage;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -91,16 +91,17 @@ public class MainActivity extends Activity implements RadioGroup.OnCheckedChange
             finish();
             return;
         }
-        messageListView = (ListView) findViewById(R.id.listMessage);
+
+       // messageListView = (ListView) findViewById(R.id.listMessage);
         listAdapter = new ArrayAdapter<String>(this, R.layout.message_detail);
-        messageListView.setAdapter(listAdapter);
-        messageListView.setDivider(null);
+       // messageListView.setAdapter(listAdapter);
+       // messageListView.setDivider(null);
         btnConnectDisconnect=(Button) findViewById(R.id.btn_select);
-        btnSend=(Button) findViewById(R.id.sendButton);
-        edtMessage = (EditText) findViewById(R.id.sendText);
+        //btnSend=(Button) findViewById(R.id.sendButton);
+        //edtMessage = (EditText) findViewById(R.id.sendText);
         service_init();
 
-     
+
        
         // Handler Disconnect & Connect button
         btnConnectDisconnect.setOnClickListener(new View.OnClickListener() {
@@ -129,7 +130,8 @@ public class MainActivity extends Activity implements RadioGroup.OnCheckedChange
                 }
             }
         });
-        // Handler Send button  
+        // Handler Send button
+        /*
         btnSend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -152,7 +154,7 @@ public class MainActivity extends Activity implements RadioGroup.OnCheckedChange
                 
             }
         });
-     
+     */
         // Set initial UI state
         
     }
@@ -207,8 +209,8 @@ public class MainActivity extends Activity implements RadioGroup.OnCheckedChange
                          	String currentDateTimeString = DateFormat.getTimeInstance().format(new Date());
                              Log.d(TAG, "UART_CONNECT_MSG");
                              btnConnectDisconnect.setText("Disconnect");
-                             edtMessage.setEnabled(true);
-                             btnSend.setEnabled(true);
+                             //edtMessage.setEnabled(true);
+                             //btnSend.setEnabled(true);
                              ((TextView) findViewById(R.id.deviceName)).setText(mDevice.getName()+ " - ready");
                              listAdapter.add("["+currentDateTimeString+"] Connected to: "+ mDevice.getName());
                         	 	messageListView.smoothScrollToPosition(listAdapter.getCount() - 1);
@@ -225,8 +227,8 @@ public class MainActivity extends Activity implements RadioGroup.OnCheckedChange
                     	 	 String currentDateTimeString = DateFormat.getTimeInstance().format(new Date());
                              Log.d(TAG, "UART_DISCONNECT_MSG");
                              btnConnectDisconnect.setText("Connect");
-                             edtMessage.setEnabled(false);
-                             btnSend.setEnabled(false);
+                             //edtMessage.setEnabled(false);
+                             //btnSend.setEnabled(false);
                              ((TextView) findViewById(R.id.deviceName)).setText("Not Connected");
                              listAdapter.add("["+currentDateTimeString+"] Disconnected to: "+ mDevice.getName());
                              mState = UART_PROFILE_DISCONNECTED;
@@ -404,7 +406,7 @@ public class MainActivity extends Activity implements RadioGroup.OnCheckedChange
             startMain.addCategory(Intent.CATEGORY_HOME);
             startMain.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(startMain);
-            showMessage("nRFUART's running in background.\n             Disconnect to exit");
+            showMessage("FMD's running in background.\n             Disconnect to exit");
         }
         else {
             new AlertDialog.Builder(this)
