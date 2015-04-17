@@ -2,25 +2,25 @@
 <items version="2" >
 
     <item
-        jar="C:\Users\Christopher\Downloads\nRFUART_GoogleAPI_Android4.3+\app\build\intermediates\exploded-aar\com.android.support\support-v4\22.0.0\classes.jar"
-        jumboMode="false"
-        revision="22.0.1"
-        sha1="4e86306289ace4aa0cfec44a05ed2b410d36989d">
-        <dex dex="C:\Users\Christopher\Downloads\nRFUART_GoogleAPI_Android4.3+\app\build\intermediates\pre-dexed\debug\classes-2d31015299dc6071c351d45b742f1e3514b0133b.jar" />
-    </item>
-    <item
-        jar="C:\Users\Christopher\AppData\Local\Android\sdk\extras\android\m2repository\com\android\support\support-annotations\22.0.0\support-annotations-22.0.0.jar"
+        jar="C:\Users\Edgar\AppData\Local\Android\sdk\extras\android\m2repository\com\android\support\support-annotations\22.0.0\support-annotations-22.0.0.jar"
         jumboMode="false"
         revision="22.0.1"
         sha1="685d0b2c590447e85284ed84712cb363ba04eff8">
-        <dex dex="C:\Users\Christopher\Downloads\nRFUART_GoogleAPI_Android4.3+\app\build\intermediates\pre-dexed\debug\support-annotations-22.0.0-463a20e1ce9f973a37449173ed11057250ede65e.jar" />
+        <dex dex="C:\Users\Edgar\Dropbox\AndroidStudioProjects\capstone\app\build\intermediates\pre-dexed\debug\support-annotations-22.0.0-ab21ca6182cbec87811200e7f77dfe4a1e202537.jar" />
     </item>
     <item
-        jar="C:\Users\Christopher\Downloads\nRFUART_GoogleAPI_Android4.3+\app\build\intermediates\exploded-aar\com.android.support\support-v4\22.0.0\libs\internal_impl-22.0.0.jar"
+        jar="C:\Users\Edgar\Dropbox\AndroidStudioProjects\capstone\app\build\intermediates\exploded-aar\com.android.support\support-v4\22.0.0\classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="4e86306289ace4aa0cfec44a05ed2b410d36989d">
+        <dex dex="C:\Users\Edgar\Dropbox\AndroidStudioProjects\capstone\app\build\intermediates\pre-dexed\debug\classes-96f640f7b4052ffc491c5a7d3e32a7faabc53200.jar" />
+    </item>
+    <item
+        jar="C:\Users\Edgar\Dropbox\AndroidStudioProjects\capstone\app\build\intermediates\exploded-aar\com.android.support\support-v4\22.0.0\libs\internal_impl-22.0.0.jar"
         jumboMode="false"
         revision="22.0.1"
         sha1="b5b92f469d515a13d778900f6d50c03d12f35504">
-        <dex dex="C:\Users\Christopher\Downloads\nRFUART_GoogleAPI_Android4.3+\app\build\intermediates\pre-dexed\debug\internal_impl-22.0.0-7fc1556cdfd668802dde155c8553686f95f6825e.jar" />
+        <dex dex="C:\Users\Edgar\Dropbox\AndroidStudioProjects\capstone\app\build\intermediates\pre-dexed\debug\internal_impl-22.0.0-377319a6d1cb6c0b64cdb121b8b3cf873534b16e.jar" />
     </item>
 
 </items>

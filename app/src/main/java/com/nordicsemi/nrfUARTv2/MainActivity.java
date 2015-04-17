@@ -40,8 +40,10 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.ServiceConnection;
 import android.content.res.Configuration;
+import android.media.AudioManager;
 import android.media.Ringtone;
 import android.media.RingtoneManager;
+import android.media.ToneGenerator;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -170,6 +172,16 @@ public class MainActivity extends Activity implements RadioGroup.OnCheckedChange
         public void onServiceDisconnected(ComponentName classname) {
        ////     mService.disconnect(mDevice);
         		mService = null;
+            try{
+                Uri notification = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+                Ringtone r = RingtoneManager.getRingtone(getApplicationContext(),notification);
+                r.play();
+            } catch (Exception e){
+                e.printStackTrace();
+            }
+
+
+
         }
     };
 
@@ -201,6 +213,7 @@ public class MainActivity extends Activity implements RadioGroup.OnCheckedChange
                              listAdapter.add("["+currentDateTimeString+"] Connected to: "+ mDevice.getName());
                         	 	messageListView.smoothScrollToPosition(listAdapter.getCount() - 1);
                              mState = UART_PROFILE_CONNECTED;
+
                      }
             	 });
             }
@@ -219,6 +232,13 @@ public class MainActivity extends Activity implements RadioGroup.OnCheckedChange
                              mState = UART_PROFILE_DISCONNECTED;
                              mService.close();
                             //setUiState();
+                         try{
+                             Uri notification = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+                             Ringtone r = RingtoneManager.getRingtone(getApplicationContext(),notification);
+                             r.play();
+                         } catch (Exception e){
+                             e.printStackTrace();
+                         }
                          
                      }
                  });
@@ -323,6 +343,8 @@ public class MainActivity extends Activity implements RadioGroup.OnCheckedChange
  
     }
 
+
+
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
@@ -399,4 +421,7 @@ public class MainActivity extends Activity implements RadioGroup.OnCheckedChange
             .show();
         }
     }
+
+
+
 }
