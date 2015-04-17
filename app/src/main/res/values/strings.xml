@@ -17,6 +17,8 @@
 <resources>
 
     <string name="app_name">Find Me Device</string>
+    <string name="show_location">Show Location</string>
+    <string name="show_logs">Show Logs</string>
     <string name="device">Device:</string>
     <string name="no_device">&lt;Select a device&gt;</string>
     <string name="select_device">Select a device</string>
@@ -63,5 +65,9 @@
     <string name="ble_not_supported">Bluetooth Low Energy not supported</string>
     <string name="scan">Scan</string>
     <string name="cancel">Cancel</string>
+    <string name="title_activity_location_and_logs">LocationAndLogs</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
     
 </resources>

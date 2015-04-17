@@ -102,6 +102,8 @@ public class MainActivity extends Activity implements RadioGroup.OnCheckedChange
         service_init();
 
 
+
+
        
         // Handler Disconnect & Connect button
         btnConnectDisconnect.setOnClickListener(new View.OnClickListener() {
@@ -111,22 +113,20 @@ public class MainActivity extends Activity implements RadioGroup.OnCheckedChange
                     Log.i(TAG, "onClick - BT not enabled yet");
                     Intent enableIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
                     startActivityForResult(enableIntent, REQUEST_ENABLE_BT);
-                }
-                else {
-                	if (btnConnectDisconnect.getText().equals("Connect")){
-                		
-                		//Connect button pressed, open DeviceListActivity class, with popup windows that scan for devices
-                		
-            			Intent newIntent = new Intent(MainActivity.this, DeviceListActivity.class);
-            			startActivityForResult(newIntent, REQUEST_SELECT_DEVICE);
-        			} else {
-        				//Disconnect button pressed
-        				if (mDevice!=null)
-        				{
-        					mService.disconnect();
-        					
-        				}
-        			}
+                } else {
+                    if (btnConnectDisconnect.getText().equals("Connect")) {
+
+                        //Connect button pressed, open DeviceListActivity class, with popup windows that scan for devices
+
+                        Intent newIntent = new Intent(MainActivity.this, DeviceListActivity.class);
+                        startActivityForResult(newIntent, REQUEST_SELECT_DEVICE);
+                    } else {
+                        //Disconnect button pressed
+                        if (mDevice != null) {
+                            mService.disconnect();
+
+                        }
+                    }
                 }
             }
         });
@@ -218,6 +218,8 @@ public class MainActivity extends Activity implements RadioGroup.OnCheckedChange
 
                      }
             	 });
+                Intent locationAndLogs = new Intent(MainActivity.this, LocationAndLogs.class);
+                startActivity(locationAndLogs);
             }
            
           //*********************//
