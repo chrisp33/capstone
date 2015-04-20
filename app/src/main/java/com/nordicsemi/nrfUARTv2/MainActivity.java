@@ -408,7 +408,7 @@ public class MainActivity extends Activity implements RadioGroup.OnCheckedChange
             startMain.addCategory(Intent.CATEGORY_HOME);
             startMain.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(startMain);
-            showMessage("FMD's running in background.\n             Disconnect to exit");
+            showMessage("FMD's running in background.\n  Disconnect to exit");
         }
         else {
             new AlertDialog.Builder(this)
