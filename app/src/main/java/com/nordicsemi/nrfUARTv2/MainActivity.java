@@ -85,6 +85,27 @@ public class MainActivity extends Activity implements RadioGroup.OnCheckedChange
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
+
+        Intent maps = new Intent(Intent.ACTION_VIEW), chooser = null;
+        double latitude=0, longitude=0;
+        String sentence = " $GPGGA,123519,4807.038,N,01131.000,E,1,08,0.9,545.4,M,46.9,M,,*47";
+        if (sentence.startsWith("$GPRMC")) {
+            String[] strValues = sentence.split(",");
+            latitude = Double.parseDouble(strValues[3])*.01;
+            if (strValues[4].charAt(0) == 'S') {
+                latitude = -latitude;
+            }
+            longitude = Double.parseDouble(strValues[5])*.01;
+            if (strValues[6].charAt(0) == 'W') {
+                longitude = -longitude;
+            }
+            double course = Double.parseDouble(strValues[8]);
+           // System.out.println("latitude="+latitude+" ; longitude="+longitude+" ; course = "+course);
+        }
+        maps.setData(Uri.parse("geo:"+ latitude+","+longitude));
+        chooser = Intent.createChooser(maps, "Launch Maps");
+        startActivity(chooser);
+
         mBtAdapter = BluetoothAdapter.getDefaultAdapter();
         if (mBtAdapter == null) {
             Toast.makeText(this, "Bluetooth is not available", Toast.LENGTH_LONG).show();
