@@ -102,8 +102,8 @@ public class MainActivity extends Activity implements RadioGroup.OnCheckedChange
         //edtMessage = (EditText) findViewById(R.id.sendText);
 
         /****  BYPASS BLUETOOTH AND GO DIRECTLY TO OTHER ACTIVITY. JUST FOR TESTING  *********/
-        Intent locationAndLogs = new Intent(MainActivity.this, LocationAndLogs.class);
-        startActivity(locationAndLogs);
+//        Intent locationAndLogs = new Intent(MainActivity.this, LocationAndLogs.class);
+//        startActivity(locationAndLogs);
         /************************************************************************************/
 
         service_init();
