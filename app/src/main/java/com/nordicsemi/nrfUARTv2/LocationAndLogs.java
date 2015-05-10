@@ -9,7 +9,9 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.Toast;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -22,20 +24,27 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
 
 public class LocationAndLogs extends Activity {
     private Button showLogsButton;
     private Button showLocationButton;
+    private ArrayAdapter<String> locAdapter;
+    private ListView listView;
+    private ArrayList<String> values;
     public  final String DEBUGGING = "Debuging";
     @Override
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
         setContentView(R.layout.activity_location_and_logs);
         showLocationButton = (Button)findViewById(R.id.locationButton);
         showLogsButton = (Button)findViewById(R.id.logsButton);
+        //locAdapter = new ArrayAdapter<String>(this,R.layout.message_detail);
 
         showLocationButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -62,18 +71,27 @@ public class LocationAndLogs extends Activity {
             // Get all latitudes and longitudes from the server
             URL fmdLogs = new URL("https://data.sparkfun.com/output/5JrdjYwNOvfGqbQEJqLE.json");
             FetchAll locLog = new FetchAll();
+            listView = (ListView)findViewById(R.id.locationLV);
             locLog.execute(fmdLogs);
             JSONArray locArray = locLog.get();
+            values = new ArrayList<String>();
             Log.i(DEBUGGING, "JSON Log: " + locArray.toString());
 
             // Display latitudes and longitudes in the log
             final String JSONLOGS = "JSONLOG";
+            String str = "";
             for (int i = 0; i < locArray.length(); i++)
             {
                 JSONObject point = (JSONObject) locArray.get(i);
                 Log.i(JSONLOGS, "Latitude: " + point.get("latitude"));
                 Log.i(JSONLOGS, "Longitude: " + point.get("longitude"));
+                Log.i(JSONLOGS, "Longitude: " + point.get("longitude"));
+                //str = point.get("latitude");
+                //values[i]=str;
+                values.add("bakkaba");
             }
+            locAdapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,android.R.id.text1,values);
+            listView.setAdapter(locAdapter);
         } catch (MalformedURLException e) {
             e.printStackTrace();
         } catch (InterruptedException e) {

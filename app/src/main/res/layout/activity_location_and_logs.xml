@@ -12,14 +12,20 @@
         android:text="@string/show_location"
         android:id="@+id/locationButton"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="77dp" />
+        android:layout_alignEnd="@+id/logsButton" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/show_logs"
         android:id="@+id/logsButton"
-        android:layout_centerVertical="true"
-        android:layout_alignStart="@+id/locationButton" />
+        android:layout_below="@+id/locationButton"
+        android:layout_alignParentEnd="true" />
+
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/locationLV"
+        android:layout_below="@+id/logsButton"
+        android:layout_alignEnd="@+id/locationButton" />
 </RelativeLayout>
