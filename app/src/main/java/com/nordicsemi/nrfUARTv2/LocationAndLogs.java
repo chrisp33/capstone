@@ -88,7 +88,7 @@ public class LocationAndLogs extends Activity {
                 Log.i(JSONLOGS, "Longitude: " + point.get("longitude"));
                 //str = point.get("latitude");
                 //values[i]=str;
-                values.add("bakkaba");
+                values.add(point.get("latitude") + "," + point.get("longitude"));
             }
             locAdapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,android.R.id.text1,values);
             listView.setAdapter(locAdapter);
