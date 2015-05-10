@@ -13,6 +13,7 @@ public class LocationAndLogs extends Activity {
     private Button showLogsButton;
     private Button showLocationButton;
     @Override
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_location_and_logs);
