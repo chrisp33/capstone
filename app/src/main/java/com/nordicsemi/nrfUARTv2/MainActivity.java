@@ -101,6 +101,12 @@ public class MainActivity extends Activity implements RadioGroup.OnCheckedChange
         btnConnectDisconnect=(Button) findViewById(R.id.btn_select);
         //btnSend=(Button) findViewById(R.id.sendButton);
         //edtMessage = (EditText) findViewById(R.id.sendText);
+
+        /****  BYPASS BLUETOOTH AND GO DIRECTLY TO OTHER ACTIVITY. JUST FOR TESTING  *********/
+        Intent locationAndLogs = new Intent(MainActivity.this, LocationAndLogs.class);
+        startActivity(locationAndLogs);
+        /************************************************************************************/
+
         service_init();
 
 
@@ -158,7 +164,9 @@ public class MainActivity extends Activity implements RadioGroup.OnCheckedChange
         });
      */
         // Set initial UI state
-        
+
+
+       /*  Launch the LocationAndLogs activity  */
     }
     
     //UART service connected/disconnected

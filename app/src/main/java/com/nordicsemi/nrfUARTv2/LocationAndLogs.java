@@ -50,9 +50,41 @@ public class LocationAndLogs extends Activity {
             @Override
             public void onClick(View v) {
                 Toast.makeText(getApplicationContext(),"Show logs clicked",Toast.LENGTH_SHORT).show();
+                showLogs();
             }
         });
+
+
     }
+
+    private void showLogs() {
+        try {
+            // Get all latitudes and longitudes from the server
+            URL fmdLogs = new URL("https://data.sparkfun.com/output/5JrdjYwNOvfGqbQEJqLE.json");
+            FetchAll locLog = new FetchAll();
+            locLog.execute(fmdLogs);
+            JSONArray locArray = locLog.get();
+            Log.i(DEBUGGING, "JSON Log: " + locArray.toString());
+
+            // Display latitudes and longitudes in the log
+            final String JSONLOGS = "JSONLOG";
+            for (int i = 0; i < locArray.length(); i++)
+            {
+                JSONObject point = (JSONObject) locArray.get(i);
+                Log.i(JSONLOGS, "Latitude: " + point.get("latitude"));
+                Log.i(JSONLOGS, "Longitude: " + point.get("longitude"));
+            }
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
     public void ShowLocation(){
         try {
 
@@ -81,23 +113,6 @@ public class LocationAndLogs extends Activity {
             maps.setData(Uri.parse(uriString));
             chooser = Intent.createChooser(maps, "Launch Maps");
             startActivity(chooser);
-
-
-            // Get all latitudes and longitudes from the server
-            URL fmdLogs = new URL("https://data.sparkfun.com/output/5JrdjYwNOvfGqbQEJqLE.json");
-            FetchAll locLog = new FetchAll();
-            locLog.execute(fmdLogs);
-            JSONArray locArray = locLog.get();
-            Log.i(DEBUGGING, "JSON Log: " + locArray.toString());
-
-            // Display latitudes and longitudes in the log
-            final String JSONLOGS = "JSONLOG";
-            for (int i = 0; i < locArray.length(); i++)
-            {
-                JSONObject point = (JSONObject) locArray.get(i);
-                Log.i(JSONLOGS, "Latitude: " + point.get("latitude"));
-                Log.i(JSONLOGS, "Longitude: " + point.get("longitude"));
-            }
 
         } catch (MalformedURLException me) {
             me.printStackTrace();
