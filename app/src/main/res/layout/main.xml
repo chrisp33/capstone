@@ -105,6 +105,12 @@
             android:textAppearance="?android:attr/textAppearanceMedium" />
     </RelativeLayout>
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/locLogsHome"
+        android:id="@+id/locLogsButton"
+        android:layout_gravity="center_horizontal" />
 
 
 </LinearLayout>

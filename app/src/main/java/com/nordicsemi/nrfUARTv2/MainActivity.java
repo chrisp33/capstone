@@ -78,7 +78,7 @@ public class MainActivity extends Activity implements RadioGroup.OnCheckedChange
     private BluetoothAdapter mBtAdapter = null;
     private ListView messageListView;
     private ArrayAdapter<String> listAdapter;
-    private Button btnConnectDisconnect,btnSend;
+    private Button btnConnectDisconnect,btnSend, locationLogsButon;
     //private EditText edtMessage;
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -108,8 +108,16 @@ public class MainActivity extends Activity implements RadioGroup.OnCheckedChange
 
         service_init();
 
+        // If unable to connect to Bluetooth, have the option to still find the device
+        locationLogsButon = (Button) findViewById(R.id.locLogsButton);
+        locationLogsButon.setOnClickListener(new View.OnClickListener(){
 
-
+            @Override
+            public void onClick(View v) {
+                Intent locationAndLogs = new Intent(MainActivity.this, LocationAndLogs.class);
+                startActivity(locationAndLogs);
+            }
+        });
 
        
         // Handler Disconnect & Connect button

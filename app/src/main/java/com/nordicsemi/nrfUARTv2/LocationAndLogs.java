@@ -9,9 +9,11 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -78,20 +80,34 @@ public class LocationAndLogs extends Activity {
             Log.i(DEBUGGING, "JSON Log: " + locArray.toString());
 
             // Display latitudes and longitudes in the log
-            final String JSONLOGS = "JSONLOG";
+            final String JSONLOG = "JSONLOG";
             String str = "";
             for (int i = 0; i < locArray.length(); i++)
             {
                 JSONObject point = (JSONObject) locArray.get(i);
-                Log.i(JSONLOGS, "Latitude: " + point.get("latitude"));
-                Log.i(JSONLOGS, "Longitude: " + point.get("longitude"));
-                Log.i(JSONLOGS, "Longitude: " + point.get("longitude"));
+                Log.i(JSONLOG, "Latitude: " + point.get("latitude"));
+                Log.i(JSONLOG, "Longitude: " + point.get("longitude"));
                 //str = point.get("latitude");
                 //values[i]=str;
                 values.add(point.get("latitude") + "," + point.get("longitude"));
             }
             locAdapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,android.R.id.text1,values);
             listView.setAdapter(locAdapter);
+
+            // Allow user to go to location if clicked on the list
+            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    // Launch Google Maps
+                    Intent maps = new Intent(Intent.ACTION_VIEW), chooser = null;
+                    String label = "Past FMD Location";
+                    String uriString = "http://maps.google.com/maps?q=" + parent.getItemAtPosition(position) + "("+ label +")&z=15";
+                    maps.setData(Uri.parse(uriString));
+                    chooser = Intent.createChooser(maps, "Launch Maps");
+                    startActivity(chooser);
+                }
+            });
+
         } catch (MalformedURLException e) {
             e.printStackTrace();
         } catch (InterruptedException e) {
