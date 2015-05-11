@@ -77,16 +77,22 @@ public class LocationAndLogs extends Activity {
             locLog.execute(fmdLogs);
             JSONArray locArray = locLog.get();
             values = new ArrayList<String>();
-            Log.i(DEBUGGING, "JSON Log: " + locArray.toString());
 
             // Display latitudes and longitudes in the log
             final String JSONLOG = "JSONLOG";
             String str = "";
+
+            if (locArray == null)
+            {
+                Toast.makeText(getApplicationContext(),"No data in current logs",Toast.LENGTH_SHORT).show();
+                return;
+            }
+
             for (int i = 0; i < locArray.length(); i++)
             {
                 JSONObject point = (JSONObject) locArray.get(i);
-                Log.i(JSONLOG, "Latitude: " + point.get("latitude"));
-                Log.i(JSONLOG, "Longitude: " + point.get("longitude"));
+                //Log.i(JSONLOG, "Latitude: " + point.get("latitude"));
+                //Log.i(JSONLOG, "Longitude: " + point.get("longitude"));
                 //str = point.get("latitude");
                 //values[i]=str;
                 values.add(point.get("latitude") + "," + point.get("longitude"));
@@ -127,7 +133,7 @@ public class LocationAndLogs extends Activity {
             FetchRecent serverData = new FetchRecent();
             serverData.execute(fmdServer);
             JSONObject stream = serverData.get();
-            Log.i(DEBUGGING, "JSON Website: " + stream.toString());
+            //Log.i(DEBUGGING, "JSON Website: " + stream.toString());
 
             // Parse the location place name, latitude, and longitude
             JSONObject locationJSONObj = stream.getJSONObject("stream").getJSONObject("_doc").getJSONObject("location");
@@ -136,9 +142,9 @@ public class LocationAndLogs extends Activity {
             String longitude = locationJSONObj.get("lng").toString();
             final String JSONSTREAM = "JSONSTREAM";
 
-            Log.i(JSONSTREAM,"Place: " + str);
-            Log.i(JSONSTREAM,"Lat: " + latitude);
-            Log.i(JSONSTREAM,"Long: " + longitude);
+            //Log.i(JSONSTREAM,"Place: " + str);
+            //Log.i(JSONSTREAM,"Lat: " + latitude);
+            //Log.i(JSONSTREAM,"Long: " + longitude);
 
             // Launch Google Maps
             Intent maps = new Intent(Intent.ACTION_VIEW), chooser = null;
@@ -170,13 +176,13 @@ public class LocationAndLogs extends Activity {
                 urlConnection = (HttpURLConnection) params[0].openConnection();
 
                 urlConnection.setRequestMethod("GET");
-                Log.i(DEBUGGING, "setRequestMethod for all");
+                //Log.i(DEBUGGING, "setRequestMethod for all");
 
                 int code = urlConnection.getResponseCode();
-                Log.i(DEBUGGING, "getResponsecode for all: " + code);
+                //Log.i(DEBUGGING, "getResponsecode for all: " + code);
 
                 String message = urlConnection.getResponseMessage();
-                Log.i(DEBUGGING, "getResponseMessage for all: " + message);
+                //Log.i(DEBUGGING, "getResponseMessage for all: " + message);
 
                 //urlConnection.setRequestProperty("Content-length", "0");
                 //urlConnection.setUseCaches(false);
@@ -185,7 +191,7 @@ public class LocationAndLogs extends Activity {
 
                 InputStream iStream = urlConnection.getInputStream();
                 String dataString = convertStreamToString(iStream);
-                Log.i(DEBUGGING, "log : " + dataString);
+                //Log.i(DEBUGGING, "log : " + dataString);
 
                 iStream.close();
 
@@ -213,13 +219,13 @@ public class LocationAndLogs extends Activity {
                 urlConnection = (HttpURLConnection) params[0].openConnection();
 
                 urlConnection.setRequestMethod("GET");
-                Log.i(DEBUGGING, "setRequestMethod");
+                //Log.i(DEBUGGING, "setRequestMethod");
 
                 int code = urlConnection.getResponseCode();
-                Log.i(DEBUGGING, "getResponsecode: " + code);
+                //Log.i(DEBUGGING, "getResponsecode: " + code);
 
                 String message = urlConnection.getResponseMessage();
-                Log.i(DEBUGGING, "getResponseMessage: " + message);
+                //Log.i(DEBUGGING, "getResponseMessage: " + message);
 
                 //urlConnection.setRequestProperty("Content-length", "0");
                 //urlConnection.setUseCaches(false);
@@ -228,7 +234,7 @@ public class LocationAndLogs extends Activity {
 
                 InputStream iStream = urlConnection.getInputStream();
                 String dataString = convertStreamToString(iStream);
-                Log.i(DEBUGGING, "website stream: " + dataString);
+                //Log.i(DEBUGGING, "website stream: " + dataString);
 
                 iStream.close();
 

@@ -125,7 +125,7 @@ public class MainActivity extends Activity implements RadioGroup.OnCheckedChange
             @Override
             public void onClick(View v) {
                 if (!mBtAdapter.isEnabled()) {
-                    Log.i(TAG, "onClick - BT not enabled yet");
+                    //Log.i(TAG, "onClick - BT not enabled yet");
                     Intent enableIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
                     startActivityForResult(enableIntent, REQUEST_ENABLE_BT);
                 } else {
@@ -180,9 +180,9 @@ public class MainActivity extends Activity implements RadioGroup.OnCheckedChange
     private ServiceConnection mServiceConnection = new ServiceConnection() {
         public void onServiceConnected(ComponentName className, IBinder rawBinder) {
         		mService = ((UartService.LocalBinder) rawBinder).getService();
-        		Log.d(TAG, "onServiceConnected mService= " + mService);
+        		//Log.d(TAG, "onServiceConnected mService= " + mService);
         		if (!mService.initialize()) {
-                    Log.e(TAG, "Unable to initialize Bluetooth");
+                    //Log.e(TAG, "Unable to initialize Bluetooth");
                     finish();
                 }
 
@@ -224,7 +224,7 @@ public class MainActivity extends Activity implements RadioGroup.OnCheckedChange
             	 runOnUiThread(new Runnable() {
                      public void run() {
                          	String currentDateTimeString = DateFormat.getTimeInstance().format(new Date());
-                             Log.d(TAG, "UART_CONNECT_MSG");
+                             //Log.d(TAG, "UART_CONNECT_MSG");
                              btnConnectDisconnect.setText("Disconnect");
                              //edtMessage.setEnabled(true);
                              //btnSend.setEnabled(true);
@@ -244,7 +244,7 @@ public class MainActivity extends Activity implements RadioGroup.OnCheckedChange
             	 runOnUiThread(new Runnable() {
                      public void run() {
                     	 	 String currentDateTimeString = DateFormat.getTimeInstance().format(new Date());
-                             Log.d(TAG, "UART_DISCONNECT_MSG");
+                             //Log.d(TAG, "UART_DISCONNECT_MSG");
                              btnConnectDisconnect.setText("Connect");
                              //edtMessage.setEnabled(false);
                              //btnSend.setEnabled(false);
@@ -284,7 +284,7 @@ public class MainActivity extends Activity implements RadioGroup.OnCheckedChange
                         	 	messageListView.smoothScrollToPosition(listAdapter.getCount() - 1);
                         	
                          } catch (Exception e) {
-                             Log.e(TAG, e.toString());
+                             //Log.e(TAG, e.toString());
                          }
                      }
                  });
@@ -322,12 +322,12 @@ public class MainActivity extends Activity implements RadioGroup.OnCheckedChange
     @Override
     public void onDestroy() {
     	 super.onDestroy();
-        Log.d(TAG, "onDestroy()");
+        //Log.d(TAG, "onDestroy()");
         
         try {
         	LocalBroadcastManager.getInstance(this).unregisterReceiver(UARTStatusChangeReceiver);
         } catch (Exception ignore) {
-            Log.e(TAG, ignore.toString());
+            //Log.e(TAG, ignore.toString());
         } 
         unbindService(mServiceConnection);
         mService.stopSelf();
@@ -337,28 +337,28 @@ public class MainActivity extends Activity implements RadioGroup.OnCheckedChange
 
     @Override
     protected void onStop() {
-        Log.d(TAG, "onStop");
+        //Log.d(TAG, "onStop");
         super.onStop();
     }
 
     @Override
     protected void onPause() {
-        Log.d(TAG, "onPause");
+        //Log.d(TAG, "onPause");
         super.onPause();
     }
 
     @Override
     protected void onRestart() {
         super.onRestart();
-        Log.d(TAG, "onRestart");
+        //Log.d(TAG, "onRestart");
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        Log.d(TAG, "onResume");
+        //Log.d(TAG, "onResume");
         if (!mBtAdapter.isEnabled()) {
-            Log.i(TAG, "onResume - BT not enabled yet");
+            //Log.i(TAG, "onResume - BT not enabled yet");
             Intent enableIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
             startActivityForResult(enableIntent, REQUEST_ENABLE_BT);
         }
@@ -382,7 +382,7 @@ public class MainActivity extends Activity implements RadioGroup.OnCheckedChange
                 String deviceAddress = data.getStringExtra(BluetoothDevice.EXTRA_DEVICE);
                 mDevice = BluetoothAdapter.getDefaultAdapter().getRemoteDevice(deviceAddress);
                
-                Log.d(TAG, "... onActivityResultdevice.address==" + mDevice + "mserviceValue" + mService);
+                //Log.d(TAG, "... onActivityResultdevice.address==" + mDevice + "mserviceValue" + mService);
                 ((TextView) findViewById(R.id.deviceName)).setText(mDevice.getName()+ " - connecting");
                 mService.connect(deviceAddress);
                             
@@ -396,13 +396,13 @@ public class MainActivity extends Activity implements RadioGroup.OnCheckedChange
 
             } else {
                 // User did not enable Bluetooth or an error occurred
-                Log.d(TAG, "BT not enabled");
+                //Log.d(TAG, "BT not enabled");
                 Toast.makeText(this, "Problem in BT Turning ON ", Toast.LENGTH_SHORT).show();
                 finish();
             }
             break;
         default:
-            Log.e(TAG, "wrong request code");
+            //Log.e(TAG, "wrong request code");
             break;
         }
     }
