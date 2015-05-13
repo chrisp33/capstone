@@ -105,9 +105,9 @@ public class LocationAndLogs extends Activity {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                     // Launch Google Maps
-                    Intent maps = new Intent(Intent.ACTION_VIEW), chooser = null;
+                    Intent maps = new Intent(Intent.ACTION_VIEW), chooser;
                     String label = "Past FMD Location";
-                    String uriString = "http://maps.google.com/maps?q=" + parent.getItemAtPosition(position) + "("+ label +")&z=15";
+                    String uriString = "http://maps.google.com/maps?q=" + parent.getItemAtPosition(position) + "(" + label + ")&z=15";
                     maps.setData(Uri.parse(uriString));
                     chooser = Intent.createChooser(maps, "Launch Maps");
                     startActivity(chooser);
@@ -128,28 +128,29 @@ public class LocationAndLogs extends Activity {
     public void ShowLocation(){
         try {
 
-            // Data from Website stream. Contains actual name of current place
-            URL fmdServer = new URL("https://data.sparkfun.com/streams/5JrdjYwNOvfGqbQEJqLE.json");
-            FetchRecent serverData = new FetchRecent();
-            serverData.execute(fmdServer);
-            JSONObject stream = serverData.get();
-            //Log.i(DEBUGGING, "JSON Website: " + stream.toString());
+            // Get all latitudes and longitudes from the server
+            URL fmdLogs = new URL("https://data.sparkfun.com/output/5JrdjYwNOvfGqbQEJqLE.json");
+            FetchAll locLog = new FetchAll();
+            listView = (ListView)findViewById(R.id.locationLV);
+            locLog.execute(fmdLogs);
+            JSONArray locArray = locLog.get();
+            values = new ArrayList<String>();
 
-            // Parse the location place name, latitude, and longitude
-            JSONObject locationJSONObj = stream.getJSONObject("stream").getJSONObject("_doc").getJSONObject("location");
-            String str = locationJSONObj.get("long").toString();
-            String latitude = locationJSONObj.get("lat").toString();
-            String longitude = locationJSONObj.get("lng").toString();
-            final String JSONSTREAM = "JSONSTREAM";
+            // Display latitudes and longitudes in the log
+            final String JSONLOG = "JSONLOG";
+            String str = "";
 
-            //Log.i(JSONSTREAM,"Place: " + str);
-            //Log.i(JSONSTREAM,"Lat: " + latitude);
-            //Log.i(JSONSTREAM,"Long: " + longitude);
+            if (locArray == null)
+            {
+                Toast.makeText(getApplicationContext(),"No data in current logs",Toast.LENGTH_SHORT).show();
+                return;
+            }
 
             // Launch Google Maps
-            Intent maps = new Intent(Intent.ACTION_VIEW), chooser = null;
-            String label = "FMD";
-            String uriString = "http://maps.google.com/maps?q=" + latitude + ',' + longitude + "("+ label +")&z=15";
+            Intent maps = new Intent(Intent.ACTION_VIEW), chooser;
+            String label = "Most Recent FMD Location";
+            JSONObject jObj = (JSONObject) locArray.get(0);
+            String uriString = "http://maps.google.com/maps?q=" + jObj.get("latitude") +","+ jObj.get("longitude") + "("+ label +")&z=15";
             maps.setData(Uri.parse(uriString));
             chooser = Intent.createChooser(maps, "Launch Maps");
             startActivity(chooser);
@@ -196,49 +197,6 @@ public class LocationAndLogs extends Activity {
                 iStream.close();
 
                 return new JSONArray(dataString);
-
-            } catch (IOException ioe) {
-                ioe.printStackTrace();
-            } catch (JSONException je) {
-                je.printStackTrace();
-            } catch (Exception e){
-                e.printStackTrace();
-            }
-            return null;
-        }
-    }
-
-    private class FetchRecent extends AsyncTask<URL, Void, JSONObject>
-    {
-
-        @Override
-        protected JSONObject doInBackground(URL... params) {
-
-            HttpURLConnection urlConnection;
-            try {
-                urlConnection = (HttpURLConnection) params[0].openConnection();
-
-                urlConnection.setRequestMethod("GET");
-                //Log.i(DEBUGGING, "setRequestMethod");
-
-                int code = urlConnection.getResponseCode();
-                //Log.i(DEBUGGING, "getResponsecode: " + code);
-
-                String message = urlConnection.getResponseMessage();
-                //Log.i(DEBUGGING, "getResponseMessage: " + message);
-
-                //urlConnection.setRequestProperty("Content-length", "0");
-                //urlConnection.setUseCaches(false);
-                //urlConnection.setAllowUserInteraction(false);
-                urlConnection.connect();
-
-                InputStream iStream = urlConnection.getInputStream();
-                String dataString = convertStreamToString(iStream);
-                //Log.i(DEBUGGING, "website stream: " + dataString);
-
-                iStream.close();
-
-                return new JSONObject(dataString);
 
             } catch (IOException ioe) {
                 ioe.printStackTrace();
